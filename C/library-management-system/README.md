@@ -1,1 +1,1 @@
->Book Amount:100
+>Book Amount: 100

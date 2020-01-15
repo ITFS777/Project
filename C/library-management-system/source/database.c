@@ -73,14 +73,14 @@ void book_add(void)
 	printf("请输入出版社名称:");
 	gets(p->publisher);
 	printf("请输入页码:");
-	scanf_s("%d", &(p->page));
+	scanf("%d", &(p->page));
 	printf("请输入入库日期，格式为 YYYY.MM.DD\n");
-	scanf_s("%u.%hu.%hu", &year, &month, &day);
+	scanf("%u.%hu.%hu", &year, &month, &day);
 	p->time_in.year = year;
 	p->time_in.month = month;
 	p->time_in.day = day;
 	printf("请输入出版日期，格式为 YYYY.MM.DD\n");
-	scanf_s("%u.%hu.%hu", &year, &month, &day);
+	scanf("%u.%hu.%hu", &year, &month, &day);
 	p->time_pub.year = year;
 	p->time_pub.month = month;
 	p->time_pub.day = day;

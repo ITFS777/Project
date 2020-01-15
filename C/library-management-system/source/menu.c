@@ -83,7 +83,7 @@ void menu_save(void)
 	int flag = 0;
 	printf("正在保存书籍数据...\n");
 	FILE* FileName = fopen(DATEBASE_FILENAME, "w");
-	flag = datebase_save(FileName);
+	flag = datebase_save();
 	if(flag == SUCCEED)
 		printf("保存成功！\n按回车返回主菜单");
 	else
@@ -97,7 +97,7 @@ void menu_reload(void)
 	int flag = 0;
 	printf("正在加载数据库...\n");
 	FILE* FileName = fopen(DATEBASE_FILENAME, "r");
-	flag = datebase_reload(FileName);
+	flag = datebase_reload();
 	if(flag == SUCCEED)
 		printf("加载成功！\n按回车返回主菜单");
 	else

@@ -22,7 +22,7 @@ int main(void)
 	link_initialize();
 	FILE* FileName = NULL;
 	FileName = fopen(DATEBASE_FILENAME, "a+");
-	flag = datebase_reload(FileName);
+	flag = datebase_reload();
 	if(flag == SUCCEED)
 		printf("初始化完成！\n按回车返回主菜单");
 	else

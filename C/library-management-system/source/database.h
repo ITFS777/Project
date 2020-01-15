@@ -1,11 +1,10 @@
-#pragma once
 #include<stdbool.h>
 void link_initialize(void);
 void print_BookInf(const struct bookinf* p);
 void book_add(void);
 int book_del(void);
 int book_del_serial(void);
-void datebase_add(const	struct bookinf* p);
+void datebase_add(const bookinf* p);
 int datebase_reload(void);
 int datebase_save(void);
 void print_allbook(void);

@@ -1,4 +1,3 @@
-#pragma once
 int get_menu_choice(void);
 int get_search_choice(void);
 int get_add_choice(void);
@@ -9,7 +8,7 @@ void print_progress(const int i);
 #define DEBUG 1
 #define PRINT_LINE printf("********************************************************************\n")
 #define NEWLINE printf("\n")
-#define PRINT_CHOICE printf("ÇëÊäÈë²Ëµ¥ÐòºÅ:")
+#define PRINT_CHOICE printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½:")
 #define TRUE 1
 #define FALSE 0
 #define SUCCEED 1

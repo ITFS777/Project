@@ -9,8 +9,7 @@
 #define MAX_VAR_NAME_LENGTH 128
 #define MAX_DIG_LENGTH 128
 #define MAX_SYMBOL_COUNT 128
-#define HASH_SEED "by_ITFS"
-double *var = NULL;
+#define HASH_SEED "Aryan.ITFS@Gmail.com"
 //////////////////////////////////////////////////////////////////////////
 bool is_letter(char ch);
 bool is_num(char ch);
@@ -59,7 +58,7 @@ int main(int argc, char *argv[])
         for (i = 0; (ch = getchar()) != '\n'; /*void*/)
         {
             exp[i] = ch;
-            i++;
+            ++i;
             exp = realloc(exp, (i + 1) * sizeof(char));
             if (exp == NULL)
                 return 0;
@@ -72,7 +71,7 @@ int main(int argc, char *argv[])
             continue;
         }
         /*----------------------------------处理表达式----------------------------------*/
-        for (i = 0, value_count = 0, symbol_count = 0, digit_count = 0; i < length; i++)
+        for (i = 0, value_count = 0, symbol_count = 0, digit_count = 0; i < length; ++i)
         {
             if (is_letter(exp[i])) //检测到变量
             {
@@ -81,17 +80,17 @@ int main(int argc, char *argv[])
                 while (is_letter(exp[i]) || is_num(exp[i]))
                 {
                     var_name[j] = exp[i];
-                    j++;
-                    i++;
+                    ++j;
+                    ++i;
                 }
                 value_list[value_count] = hash(var_name, var, MAX_SYMBOL_COUNT, HASH_SEED); //将变量名映射到哈希地址
-                value_count++;
-                i--;
+                ++value_count;
+                --i;
             }
             else if (is_symbol(exp[i])) //检测到符号
             {
                 symbol_list[symbol_count] = exp[i];
-                symbol_count++;
+                ++symbol_count;
             }
             else if (is_num(exp[i])) //检测到数值
             {
@@ -100,19 +99,17 @@ int main(int argc, char *argv[])
                 while (is_num(exp[i])) //将数值保存为字符串
                 {
                     digit_string[j] = exp[i];
-                    j++;
-                    i++;
+                    ++j;
+                    ++i;
                 }
                 digit_list[digit_count] = atof(digit_string);       //转化为字符
                 value_list[value_count] = &digit_list[digit_count]; //储存在值序列中
-                digit_count++;
-                value_count++;
-                i--;
+                ++digit_count;
+                ++value_count;
+                --i;
             }
         }
-        free(exp); //释放内存
-        /*for( i = 0; i < symbol_count; i++)
-            printf("%c ",symbol_list[i]);*/
+        free(exp);\
         /*----------------------------------计算表达式----------------------------------*/
         if (value_count == 0 && symbol_count == 0)
         {
@@ -170,10 +167,9 @@ bool is_symbol(char ch)
 //////////////////////////////////////////////////////////////////////////
 double *hash(const char *name, const double *base, int size, const char *hash_seed)
 {
-    int i = 0;
     long long int tmp = 0, p3 = 0;
     char p1 = 0, p2 = 0;
-    for (i = 0; i < strlen(name); i++)
+    for (int i = 0; i < strlen(name); ++i)
     {
         p1 = (name[i] & 0xA5) | (hash_seed[i % strlen(hash_seed)] & 0x5A);
         p2 = (name[i] & 0x5A) | (hash_seed[i % strlen(hash_seed)] & 0xA5);
@@ -190,7 +186,7 @@ double com(double **value_list, int value_count, char *symbol_list, int symbol_c
     int i = 0, j = 0;
     double result = 0;
     result = *value_list[0];
-    for (i = 1, j = 0; (i < value_count) && (j < symbol_count); i++, j++)
+    for (i = 1, j = 0; (i < value_count) && (j < symbol_count); ++i, ++j)
     {
         switch (symbol_list[j])
         {
@@ -198,14 +194,14 @@ double com(double **value_list, int value_count, char *symbol_list, int symbol_c
             if (symbol_list[j + 1] == '(')
             {
                 result += com(value_list + i, value_count - i, symbol_list + j + 2, symbol_count - j - 2);
-                for (/*void*/; symbol_list[j] == ')'; j++)
+                for (/*void*/; symbol_list[j] == ')'; ++j)
                 {
                     if (symbol_list[j] == '(')
                         continue;
                     else
-                        i++;
+                        ++i;
                 }
-                i++;
+                ++i;
                 j -= 2;
             }
             else
@@ -216,14 +212,14 @@ double com(double **value_list, int value_count, char *symbol_list, int symbol_c
             if (symbol_list[j + 1] == '(')
             {
                 result -= com(value_list + i, value_count - i, symbol_list + j + 2, symbol_count - j - 2);
-                for (/*void*/; symbol_list[j] == ')'; j++)
+                for (/*void*/; symbol_list[j] == ')'; ++j)
                 {
                     if (symbol_list[j] == '(')
                         continue;
                     else
-                        i++;
+                        ++i;
                 }
-                i++;
+                ++i;
                 j -= 2;
             }
             else
@@ -233,14 +229,14 @@ double com(double **value_list, int value_count, char *symbol_list, int symbol_c
             if (symbol_list[j + 1] == '(')
             {
                 result *= com(value_list + i, value_count - i, symbol_list + j + 2, symbol_count - j - 2);
-                for (/*void*/; symbol_list[j] == ')'; j++)
+                for (/*void*/; symbol_list[j] == ')'; ++j)
                 {
                     if (symbol_list[j] == '(')
                         continue;
                     else
-                        i++;
+                        ++i;
                 }
-                i++;
+                ++i;
                 j -= 2;
             }
             else
@@ -250,14 +246,14 @@ double com(double **value_list, int value_count, char *symbol_list, int symbol_c
             if (symbol_list[j + 1] == '(')
             {
                 result /= com(value_list + i, value_count - i, symbol_list + j + 2, symbol_count - j - 2);
-                for (/*void*/; symbol_list[j] == ')'; j++)
+                for (/*void*/; symbol_list[j] == ')'; ++j)
                 {
                     if (symbol_list[j] == '(')
                         continue;
                     else
-                        i++;
+                        ++i;
                 }
-                i++;
+                ++i;
                 j -= 2;
             }
             else
@@ -272,14 +268,14 @@ double com(double **value_list, int value_count, char *symbol_list, int symbol_c
             if (symbol_list[j + 1] == '(')
             {
                 result = pow(result, com(value_list + i, value_count - i, symbol_list + j + 2, symbol_count - j - 2));
-                for (/*void*/; symbol_list[j] == ')'; j++)
+                for (/*void*/; symbol_list[j] == ')'; ++j)
                 {
                     if (symbol_list[j] == '(')
                         continue;
                     else
-                        i++;
+                        ++i;
                 }
-                i++;
+                ++i;
                 j -= 2;
             }
             else
